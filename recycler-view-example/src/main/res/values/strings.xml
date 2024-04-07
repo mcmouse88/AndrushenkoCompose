@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">AndrushchenkoJetpackComposeCourse</string>
+    <string name="total_count">Total count: %1$d</string>
+</resources>
