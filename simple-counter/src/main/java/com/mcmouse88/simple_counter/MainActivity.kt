@@ -12,7 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.mcmouse88.simple_counter.base.ColumnContainer
-import com.mcmouse88.simple_counter.images.ImagesExample
+import com.mcmouse88.simple_counter.lists.SimpleList
 import com.mcmouse88.simple_counter.ui.theme.SimpleCounterTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SimpleCounterTheme {
-                ImagesExample()
+                SimpleList()
             }
         }
     }
