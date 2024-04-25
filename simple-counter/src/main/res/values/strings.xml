@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">SimpleCounter</string>
+    <string name="simple_vector_icon">Simple vector icon</string>
+    <string name="umbrella_icon">Umbrella icon</string>
+    <string name="material_icon">Material icon</string>
+    <string name="material_mail_icon">Material mail icon</string>
+    <string name="tinted_vector_icon">Tinted vector icon</string>
+    <string name="vector_icon_with_modifiers">Vector Icon with modifiers</string>
+    <string name="simple_image">Simple image</string>
+    <string name="random_architecture_showcase">Random architecture showcase</string>
+    <string name="image_with_contentscale_crop">Image with contentScale=Crop</string>
+    <string name="image_cropped_by_aspect_ratio">Image cropped by aspect ratio</string>
+    <string name="clipped_image">Clipped image</string>
+    <string name="clipped_image_with_custom_shape">Clipped image with Custom shape</string>
+    <string name="simple_async_load_by_coil">Simple Async Load by Coil</string>
+    <string name="async_load_by_coil_with_state_tracking">Async Load by Coil with state tracking</string>
+    <string name="load_failed">Load failed</string>
+    <string name="load">Load</string>
 </resources>
