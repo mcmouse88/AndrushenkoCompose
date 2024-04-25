@@ -11,7 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.mcmouse88.simple_counter.base.Container
+import com.mcmouse88.simple_counter.base.ColumnContainer
+import com.mcmouse88.simple_counter.images.ImagesExample
 import com.mcmouse88.simple_counter.ui.theme.SimpleCounterTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             SimpleCounterTheme {
-                AppScreen()
+                ImagesExample()
             }
         }
     }
@@ -34,13 +35,13 @@ fun AppScreen() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
-        Container(name = "Buttons example") {
+        ColumnContainer(name = "Buttons example") {
             ButtonsExample()
         }
-        Container(name = "TextField example") {
+        ColumnContainer(name = "TextField example") {
             TextFieldExample()
         }
-        Container(name = "CheckBox Example") {
+        ColumnContainer(name = "CheckBox Example") {
             CheckBoxesExample()
         }
     }
