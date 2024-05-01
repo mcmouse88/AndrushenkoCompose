@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":composition-local-sample")
+
+
 include(":user_list")
 
 
