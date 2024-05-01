@@ -1,15 +1,14 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.mcmouse88.simple_counter"
+    namespace = "com.mcmouse88.user_list"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.mcmouse88.simple_counter"
+        applicationId = "com.mcmouse88.user_list"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
@@ -29,6 +28,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
         create("profile") {
             initWith(getByName("debug"))
             isDebuggable = false
@@ -62,8 +62,6 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(platform(libs.compose.bom))
     implementation(libs.ui)
-    implementation(libs.coil.compose)
-    implementation(libs.github.javafaker)
     implementation(libs.ui.graphics)
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
@@ -74,4 +72,8 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+
+    implementation(libs.coil.compose)
+    implementation(libs.github.javafaker)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 }

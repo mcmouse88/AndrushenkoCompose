@@ -16,4 +16,7 @@
     <string name="async_load_by_coil_with_state_tracking">Async Load by Coil with state tracking</string>
     <string name="load_failed">Load failed</string>
     <string name="load">Load</string>
+    <string name="clicked_on">Clicked on: %1$s</string>
+    <string name="user_photo">User Photo</string>
+    <string name="delete_user">Delete user</string>
 </resources>
