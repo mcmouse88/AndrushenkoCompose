@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":composition-local-refresh")
+
+
 include(":composition-local-sample")
 
 
