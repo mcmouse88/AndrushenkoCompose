@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":constraint-layout")
+
+
 include(":composition-local-refresh")
 
 

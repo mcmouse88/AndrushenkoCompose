@@ -19,7 +19,6 @@ appcompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
 core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 material = { module = "com.google.android.material:material", version = "1.11.0" }
-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleVersion" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version = "1.8.2" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2023.08.00" }
 ui = { group = "androidx.compose.ui", name = "ui" }
@@ -29,10 +28,13 @@ ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview
 ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.1" }
+
 
 # Lifecycle
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleVersion" }
+lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleVersion" }
 
 # Activity ktx
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version = "1.8.2" }
