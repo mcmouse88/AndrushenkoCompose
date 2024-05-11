@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":simple-items-list")
+
+
 include(":constraint-layout")
 
 
