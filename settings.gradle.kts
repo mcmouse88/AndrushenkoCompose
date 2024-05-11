@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":top-app-bar")
+
+
 include(":simple-items-list")
 
 
