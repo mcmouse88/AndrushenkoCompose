@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BackHandler</string>
+    <string name="increment">Increment</string>
+</resources>
