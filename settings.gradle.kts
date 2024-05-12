@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":navigation-bar")
+
+
 include(":top-app-bar")
 
 
