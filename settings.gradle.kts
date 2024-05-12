@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":back-handler")
+
+
 include(":navigation-bar")
 
 
