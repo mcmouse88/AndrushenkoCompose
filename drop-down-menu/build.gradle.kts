@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.mcmouse88.back_handler"
+    namespace = "com.mcmouse88.drop_down_menu"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.mcmouse88.back_handler"
+        applicationId = "com.mcmouse88.drop_down_menu"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1

@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":drop-down-menu")
+
+
 include(":back-handler")
 
 

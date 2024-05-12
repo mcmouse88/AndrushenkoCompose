@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DropDownMenu</string>
+    <string name="popup_menu_example">Popup Menu Example</string>
+    <string name="show">Show</string>
+</resources>
