@@ -2,7 +2,7 @@
 minSdk = "24"
 compileSdk = "34"
 targetSdk = "34"
-kotlinCompilerExtensionVersion = "1.5.4"
+kotlinCompilerExtensionVersion = "1.5.5"
 kotlinVersion = "1.9.20"
 lifecycleVersion = "2.7.0"
 coroutinesVersion = "1.7.3"
