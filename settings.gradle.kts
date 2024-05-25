@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":immutable-stable")
+
+
 include(":drop-down-menu")
 
 

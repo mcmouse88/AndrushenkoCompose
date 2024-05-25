@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ImmutableStable</string>
+    <string name="increment">Increment</string>
+    <string name="random_label">Random Label</string>
+</resources>
