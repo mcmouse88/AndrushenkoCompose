@@ -1,5 +1,14 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":navigation-realization:appnavigation")
+
+
+include(":navigation-realization:navigation")
+
+
+include(":navigation-realization")
+
+
 include(":immutable-stable")
 
 
