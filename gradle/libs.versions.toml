@@ -7,10 +7,12 @@ kotlinVersion = "1.9.20"
 lifecycleVersion = "2.7.0"
 coroutinesVersion = "1.7.3"
 espressoVersion = "3.5.1"
+agp = "8.1.1"
 
 [plugins]
 android-application = { id = "com.android.application", version = "8.1.1" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
+android-library = { id = "com.android.library", version.ref = "agp" }
 
 [libraries]
 
@@ -21,6 +23,7 @@ core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 material = { module = "com.google.android.material:material", version = "1.11.0" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version = "1.8.2" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2023.08.00" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
