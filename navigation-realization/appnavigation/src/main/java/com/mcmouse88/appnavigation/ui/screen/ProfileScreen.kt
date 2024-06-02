@@ -1,4 +1,4 @@
-package com.mcmouse88.appnavigation.screen
+package com.mcmouse88.appnavigation.ui.screen
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentHeight
