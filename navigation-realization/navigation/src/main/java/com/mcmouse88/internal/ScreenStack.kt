@@ -2,46 +2,51 @@ package com.mcmouse88.internal
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.core.os.ParcelCompat
 import com.mcmouse88.navigation.NavigationState
 import com.mcmouse88.navigation.Route
 import com.mcmouse88.navigation.Router
+import com.mcmouse88.navigation.Screen
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 internal class ScreenStack(
-    private val routes: SnapshotStateList<Route>
+    private val routes: SnapshotStateList<RouteRecord>
 ) : NavigationState, Router, InternalNavigationState, Parcelable {
 
-    override val isRoot: Boolean
-        get() = routes.size == 1
-    override val currentRoute: Route
-        get() = routes.last()
+    override val isRoot: Boolean get() = routes.size == 1
+    override val currentRoute: Route get() = routes.last().route
+    override val currentUuid: String get() = routes.last().uuid
+    override val currentScreen: Screen by derivedStateOf {
+        currentRoute.screenProducer.invoke()
+    }
 
     private val eventsFlow = MutableSharedFlow<NavigationEvent>(
         extraBufferCapacity = Int.MAX_VALUE
     )
 
     constructor(parcel: Parcel) : this(
-        SnapshotStateList<Route>().also { newList ->
+        SnapshotStateList<RouteRecord>().also { newList ->
             ParcelCompat.readList(
                 parcel,
                 newList,
-                Route::class.java.classLoader,
-                Route::class.java
+                RouteRecord::class.java.classLoader,
+                RouteRecord::class.java
             )
         }
     )
 
     override fun launch(route: Route) {
-        routes.add(route)
+        routes.add(RouteRecord(route))
     }
 
     override fun pop() {
-        val removed =  routes.removeLastOrNull()
-        if (removed != null) {
-            eventsFlow.tryEmit(NavigationEvent.Removed(removed))
+        val removedRouteRecord = routes.removeLastOrNull()
+        if (removedRouteRecord != null) {
+            eventsFlow.tryEmit(NavigationEvent.Removed(removedRouteRecord))
         }
     }
 
@@ -51,7 +56,7 @@ internal class ScreenStack(
                 eventsFlow.tryEmit(NavigationEvent.Removed(it))
             }
             clear()
-            add(route)
+            add(RouteRecord(route))
         }
     }
 

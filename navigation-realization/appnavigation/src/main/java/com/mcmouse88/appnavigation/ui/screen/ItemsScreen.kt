@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -17,18 +20,43 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mcmouse88.appnavigation.AppScreen
+import com.mcmouse88.appnavigation.AppScreenEnvironment
+import com.mcmouse88.appnavigation.FloatingAction
 import com.mcmouse88.appnavigation.ItemsRepository
 import com.mcmouse88.appnavigation.R
+import com.mcmouse88.appnavigation.ui.AppRoute
+import com.mcmouse88.navigation.LocalRouter
+import com.mcmouse88.navigation.Router
 
-@Composable
-fun ItemsScreen() {
-    val itemsRepository = ItemsRepository.get()
-    val items by itemsRepository.getItems().collectAsStateWithLifecycle()
-    val isEmpty by remember { derivedStateOf { items.isEmpty() } }
-    ItemsContent(
-        isItemsEmpty = isEmpty,
-        items = { items }
-    )
+val ItemsScreenProducer = { ItemsScreen() }
+
+class ItemsScreen : AppScreen {
+
+    private var router: Router? = null
+
+    override val environment = AppScreenEnvironment().apply {
+        titleRes = R.string.items
+        icon = Icons.Default.List
+        floatingAction = FloatingAction(
+            icon = Icons.Default.Add,
+            onClick = {
+                router?.launch(AppRoute.AddItem)
+            }
+        )
+    }
+
+    @Composable
+    override fun Content() {
+        router = LocalRouter.current
+        val itemsRepository = ItemsRepository.get()
+        val items by itemsRepository.getItems().collectAsStateWithLifecycle()
+        val isEmpty by remember { derivedStateOf { items.isEmpty() } }
+        ItemsContent(
+            isItemsEmpty = isEmpty,
+            items = { items }
+        )
+    }
 }
 
 @Composable

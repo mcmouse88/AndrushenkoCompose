@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import com.mcmouse88.internal.InternalNavigationState
+import com.mcmouse88.internal.RouteRecord
 import com.mcmouse88.internal.ScreenStack
 
 @Stable
@@ -23,7 +24,7 @@ data class Navigation internal constructor(
 fun rememberNavigation(initialRouter: Route): Navigation {
 
     val screenStack = rememberSaveable(initialRouter) {
-        ScreenStack(mutableStateListOf(initialRouter))
+        ScreenStack(mutableStateListOf(RouteRecord(initialRouter)))
     }
 
     return remember(initialRouter) {

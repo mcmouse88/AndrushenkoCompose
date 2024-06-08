@@ -5,10 +5,11 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.mcmouse88.appnavigation.ui.AppRoute
-import com.mcmouse88.navigation.NavigationState
-import com.mcmouse88.navigation.Router
+import com.mcmouse88.navigation.Route
 
 /**
  * The list off all roo tabs
@@ -21,20 +22,27 @@ val RootTabs = listOf(
 
 @Composable
 fun AppNavigationBar(
-    navigationState: NavigationState,
-    router: Router
+    currentRoute: Route,
+    onRouteSelected: (Route) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-    if (navigationState.isRoot) {
-        NavigationBar {
-            RootTabs.forEach { tab ->
+    NavigationBar(
+        modifier = modifier
+    ) {
+        RootTabs.forEach { tab ->
+            val environment = remember(tab) {
+                tab.screenProducer.invoke().environment
+            }
+            val icon = environment.icon
+            if (icon != null) {
                 NavigationBarItem(
-                    selected = navigationState.currentRoute == tab,
-                    label = { Text(text = stringResource(id = tab.titleRes)) },
-                    onClick = { router.restart(tab) },
+                    selected = currentRoute == tab,
+                    label = { Text(text = stringResource(id = environment.titleRes)) },
+                    onClick = { onRouteSelected.invoke(tab) },
                     icon = {
                         Icon(
-                            imageVector = tab.icon,
-                            contentDescription = stringResource(id = tab.titleRes)
+                            imageVector = icon,
+                            contentDescription = stringResource(id = environment.titleRes)
                         )
                     }
                 )

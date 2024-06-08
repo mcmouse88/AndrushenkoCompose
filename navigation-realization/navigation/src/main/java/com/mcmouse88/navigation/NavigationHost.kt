@@ -17,22 +17,25 @@ val LocalRouter = staticCompositionLocalOf<Router> { EmptyRouter }
 @Composable
 fun NavigationHost(
     navigation: Navigation,
-    modifier: Modifier = Modifier,
-    routeMapper: @Composable (Route) -> Unit
+    modifier: Modifier = Modifier
 ) {
-    val (router, navigationState) = navigation
+    val (
+        router,
+        navigationState,
+        internalState
+    ) = navigation
 
     BackHandler(enabled = !navigationState.isRoot) {
         router.pop()
     }
 
     val saveableStateHolder = rememberSaveableStateHolder()
-    saveableStateHolder.SaveableStateProvider(key = navigationState.currentRoute) {
+    saveableStateHolder.SaveableStateProvider(key = internalState.currentUuid) {
         Box(modifier = modifier) {
             CompositionLocalProvider(
                 LocalRouter provides router
             ) {
-                routeMapper.invoke(navigationState.currentRoute)
+                navigationState.currentScreen.Content()
             }
         }
     }

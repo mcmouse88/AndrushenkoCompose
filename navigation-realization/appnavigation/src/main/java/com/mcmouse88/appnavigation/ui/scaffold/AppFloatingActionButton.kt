@@ -1,27 +1,29 @@
 package com.mcmouse88.appnavigation.ui.scaffold
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import com.mcmouse88.appnavigation.FloatingAction
 import com.mcmouse88.appnavigation.R
-import com.mcmouse88.appnavigation.ui.AppRoute
-import com.mcmouse88.navigation.NavigationState
-import com.mcmouse88.navigation.Router
 
+/**
+ * Floating Action Button from the right-bottom corner.
+ * Now it is displayed only for ItemScreen.
+ */
 @Composable
 fun AppFloatingActionButton(
-    navigationState: NavigationState,
-    router: Router
+    floatingAction: FloatingAction?,
+    modifier: Modifier = Modifier
 ) {
-    if (navigationState.currentRoute == AppRoute.Tab.Items) {
+    if (floatingAction != null) {
         FloatingActionButton(
-            onClick = { router.launch(AppRoute.AddItem) }
+            modifier = modifier,
+            onClick = floatingAction.onClick
         ) {
             Icon(
-                imageVector = Icons.Default.Add,
+                imageVector = floatingAction.icon,
                 contentDescription = stringResource(id = R.string.add_new_item)
             )
         }
