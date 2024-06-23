@@ -1,10 +1,11 @@
 package com.mcmouse88.appnavigation.ui
 
 import com.mcmouse88.appnavigation.AppScreen
-import com.mcmouse88.appnavigation.ui.screen.AddItemScreenProducer
+import com.mcmouse88.appnavigation.ui.screen.ItemScreenArgs
 import com.mcmouse88.appnavigation.ui.screen.ItemsScreenProducer
 import com.mcmouse88.appnavigation.ui.screen.ProfileScreenProducer
 import com.mcmouse88.appnavigation.ui.screen.SettingsScreenProducer
+import com.mcmouse88.appnavigation.ui.screen.itemScreenProducer
 import com.mcmouse88.navigation.Route
 import kotlinx.parcelize.Parcelize
 
@@ -12,7 +13,10 @@ sealed class AppRoute(
     override val screenProducer: () -> AppScreen
 ) : Route {
 
-    @Parcelize data object AddItem : AppRoute(AddItemScreenProducer)
+    @Parcelize
+    data class Item(
+        val args: ItemScreenArgs
+    ) : AppRoute(itemScreenProducer(args))
 
     sealed class Tab(
         screenProducer: () -> AppScreen

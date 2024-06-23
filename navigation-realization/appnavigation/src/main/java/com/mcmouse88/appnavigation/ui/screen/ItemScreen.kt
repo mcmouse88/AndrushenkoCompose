@@ -1,5 +1,6 @@
 package com.mcmouse88.appnavigation.ui.screen
 
+import android.os.Parcelable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -25,12 +26,27 @@ import com.mcmouse88.appnavigation.AppScreenEnvironment
 import com.mcmouse88.appnavigation.ItemsRepository
 import com.mcmouse88.appnavigation.R
 import com.mcmouse88.navigation.LocalRouter
+import kotlinx.parcelize.Parcelize
 
-val AddItemScreenProducer = { AddItemScreen() }
+fun itemScreenProducer(args: ItemScreenArgs): () -> ItemScreen = { ItemScreen(args) }
 
-class AddItemScreen : AppScreen {
+sealed class ItemScreenArgs : Parcelable {
+
+    @Parcelize
+    data object Add : ItemScreenArgs()
+
+    @Parcelize
+    data class Edit(val index: Int) : ItemScreenArgs()
+}
+
+class ItemScreen(
+    private val args: ItemScreenArgs
+) : AppScreen {
     override val environment = AppScreenEnvironment().apply {
-        titleRes = R.string.add_item
+        titleRes = when (args) {
+            ItemScreenArgs.Add -> R.string.add_item
+            is ItemScreenArgs.Edit -> R.string.edit_item
+        }
     }
 
     @Composable
@@ -38,9 +54,19 @@ class AddItemScreen : AppScreen {
         val itemsRepository = ItemsRepository.get()
         val router = LocalRouter.current
 
-        AddItemContent(
+        ItemContent(
+            initialValue = if (args is ItemScreenArgs.Edit) {
+                remember { itemsRepository.getItems().value[args.index] }
+            } else {
+                ""
+            },
+            isAddMode = args is ItemScreenArgs.Add,
             onSubmitNewItem = {
-                itemsRepository.addItem(it)
+                if (args is ItemScreenArgs.Edit) {
+                    itemsRepository.update(args.index, it)
+                } else {
+                    itemsRepository.addItem(it)
+                }
                 router.pop()
             }
         )
@@ -48,10 +74,14 @@ class AddItemScreen : AppScreen {
 }
 
 @Composable
-fun AddItemContent(onSubmitNewItem: (String) -> Unit) {
-    var newItemValue by rememberSaveable { mutableStateOf("") }
+fun ItemContent(
+    initialValue: String = "",
+    isAddMode: Boolean = false,
+    onSubmitNewItem: (String) -> Unit
+) {
+    var currentItemValue by rememberSaveable { mutableStateOf(initialValue) }
     val isAddEnabled by remember {
-        derivedStateOf { newItemValue.isNotEmpty() }
+        derivedStateOf { currentItemValue.isNotEmpty() }
     }
 
     Column(
@@ -60,23 +90,28 @@ fun AddItemContent(onSubmitNewItem: (String) -> Unit) {
         modifier = Modifier.fillMaxSize()
     ) {
         OutlinedTextField(
-            value = newItemValue,
-            onValueChange = { newItemValue = it },
+            value = currentItemValue,
+            onValueChange = { currentItemValue = it },
             label = { Text(text = stringResource(id = R.string.enter_new_value)) },
             singleLine = true
         )
         Spacer(modifier = Modifier.height(16.dp))
         Button(
-            onClick = { onSubmitNewItem.invoke(newItemValue) },
+            onClick = { onSubmitNewItem.invoke(currentItemValue) },
             enabled = isAddEnabled
         ) {
-            Text(text = stringResource(id = R.string.add_new_item))
+            val buttonText = if (isAddMode) {
+                R.string.add_new_item
+            } else {
+                R.string.edit_item
+            }
+            Text(text = stringResource(id = buttonText))
         }
     }
 }
 
 @Preview(showSystemUi = true)
 @Composable
-private fun AddItemPreview() {
-    AddItemContent(onSubmitNewItem = {})
+private fun ItemPreview() {
+    ItemContent(onSubmitNewItem = {})
 }
