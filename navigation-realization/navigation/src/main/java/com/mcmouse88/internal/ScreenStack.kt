@@ -10,11 +10,13 @@ import com.mcmouse88.navigation.NavigationState
 import com.mcmouse88.navigation.Route
 import com.mcmouse88.navigation.Router
 import com.mcmouse88.navigation.Screen
+import com.mcmouse88.navigation.ScreenResponseReceiver
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 internal class ScreenStack(
-    private val routes: SnapshotStateList<RouteRecord>
+    private val routes: SnapshotStateList<RouteRecord>,
+    private val screenResponsesBus: ScreenResponsesBus = ScreenResponsesBus()
 ) : NavigationState, Router, InternalNavigationState, Parcelable {
 
     override val isRoot: Boolean get() = routes.size == 1
@@ -23,6 +25,8 @@ internal class ScreenStack(
     override val currentScreen: Screen by derivedStateOf {
         currentRoute.screenProducer.invoke()
     }
+
+    override val screenResponseReceiver: ScreenResponseReceiver = screenResponsesBus
 
     private val eventsFlow = MutableSharedFlow<NavigationEvent>(
         extraBufferCapacity = Int.MAX_VALUE
@@ -40,17 +44,22 @@ internal class ScreenStack(
     )
 
     override fun launch(route: Route) {
+        screenResponsesBus.cleanUp()
         routes.add(RouteRecord(route))
     }
 
-    override fun pop() {
+    override fun pop(response: Any?) {
         val removedRouteRecord = routes.removeLastOrNull()
         if (removedRouteRecord != null) {
             eventsFlow.tryEmit(NavigationEvent.Removed(removedRouteRecord))
+            if (response != null) {
+                screenResponsesBus.send(response)
+            }
         }
     }
 
     override fun restart(route: Route) {
+        screenResponsesBus.cleanUp()
         routes.apply {
             routes.forEach {
                 eventsFlow.tryEmit(NavigationEvent.Removed(it))

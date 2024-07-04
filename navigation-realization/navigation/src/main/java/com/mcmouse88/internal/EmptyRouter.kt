@@ -7,7 +7,7 @@ object EmptyRouter : Router {
 
     override fun launch(route: Route) = Unit
 
-    override fun pop() = Unit
+    override fun pop(response: Any?) = Unit
 
     override fun restart(route: Route) = Unit
 }

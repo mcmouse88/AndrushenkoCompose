@@ -28,6 +28,7 @@ import com.mcmouse88.appnavigation.ItemsRepository
 import com.mcmouse88.appnavigation.R
 import com.mcmouse88.appnavigation.ui.AppRoute
 import com.mcmouse88.navigation.LocalRouter
+import com.mcmouse88.navigation.ResponseListener
 import com.mcmouse88.navigation.Router
 
 val ItemsScreenProducer = { ItemsScreen() }
@@ -53,6 +54,13 @@ class ItemsScreen : AppScreen {
         val itemsRepository = ItemsRepository.get()
         val items by itemsRepository.getItems().collectAsStateWithLifecycle()
         val isEmpty by remember { derivedStateOf { items.isEmpty() } }
+        ResponseListener<ItemScreenResponse> { response ->
+            if (response.args is ItemScreenArgs.Edit) {
+                itemsRepository.update(response.args.index, response.newValue)
+            } else {
+                itemsRepository.addItem(response.newValue)
+            }
+        }
         ItemsContent(
             isItemsEmpty = isEmpty,
             items = { items },
