@@ -9,36 +9,39 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.mcmouse88.appnavigation.ui.AppRoute
-import com.mcmouse88.navigation.Route
+import kotlinx.collections.immutable.persistentListOf
 
 /**
  * The list off all roo tabs
  */
-val RootTabs = listOf(
+val RootTabs = persistentListOf(
     AppRoute.Tab.Items,
     AppRoute.Tab.Settings,
     AppRoute.Tab.Profile
 )
 
+/**
+ * In-app bottom navigation bar
+ */
 @Composable
 fun AppNavigationBar(
-    currentRoute: Route,
-    onRouteSelected: (Route) -> Unit,
+    currentIndex: Int,
+    onIndexSelected: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     NavigationBar(
         modifier = modifier
     ) {
-        RootTabs.forEach { tab ->
+        RootTabs.forEachIndexed { index, tab ->
             val environment = remember(tab) {
                 tab.screenProducer.invoke().environment
             }
             val icon = environment.icon
             if (icon != null) {
                 NavigationBarItem(
-                    selected = currentRoute == tab,
+                    selected = currentIndex == index,
                     label = { Text(text = stringResource(id = environment.titleRes)) },
-                    onClick = { onRouteSelected.invoke(tab) },
+                    onClick = { onIndexSelected.invoke(index) },
                     icon = {
                         Icon(
                             imageVector = icon,

@@ -53,4 +53,6 @@ dependencies {
     implementation(platform(libs.compose.bom))
     implementation(libs.compose.foundation)
     implementation(libs.ui)
+
+    api(libs.jetbrains.kotlinx.collections.immutable)
 }

@@ -18,5 +18,9 @@ interface Router {
     /**
      * Remove all screens from the navigation stack and launch the specified [route]
      */
-    fun restart(route: Route)
+    fun restart(route: Route) = restart(listOf(route))
+
+    fun restart(rootRoutes: List<Route>, initialIndex: Int = 0)
+
+    fun switchStack(index: Int)
 }
