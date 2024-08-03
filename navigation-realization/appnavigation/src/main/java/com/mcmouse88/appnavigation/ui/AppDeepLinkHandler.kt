@@ -1,7 +1,7 @@
 package com.mcmouse88.appnavigation.ui
 
 import android.net.Uri
-import com.mcmouse88.appnavigation.ui.screen.ItemScreenArgs
+import com.mcmouse88.appnavigation.ui.screen.item.ItemScreenArgs
 import com.mcmouse88.links.DeepLinkHandler
 import com.mcmouse88.links.MultiStackState
 

@@ -55,4 +55,5 @@ dependencies {
     implementation(libs.ui)
 
     api(libs.jetbrains.kotlinx.collections.immutable)
+    api(libs.androidx.lifecycle.viewmodel.compose)
 }

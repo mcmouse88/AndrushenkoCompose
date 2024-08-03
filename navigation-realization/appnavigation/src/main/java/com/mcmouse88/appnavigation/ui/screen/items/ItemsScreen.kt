@@ -1,4 +1,4 @@
-package com.mcmouse88.appnavigation.ui.screen
+package com.mcmouse88.appnavigation.ui.screen.items
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,12 +21,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mcmouse88.appnavigation.AppScreen
 import com.mcmouse88.appnavigation.AppScreenEnvironment
 import com.mcmouse88.appnavigation.FloatingAction
-import com.mcmouse88.appnavigation.ItemsRepository
 import com.mcmouse88.appnavigation.R
 import com.mcmouse88.appnavigation.ui.AppRoute
+import com.mcmouse88.appnavigation.ui.screen.item.ItemScreenArgs
 import com.mcmouse88.navigation.LocalRouter
 import com.mcmouse88.navigation.ResponseListener
 import com.mcmouse88.navigation.Router
@@ -51,16 +52,10 @@ class ItemsScreen : AppScreen {
     @Composable
     override fun Content() {
         router = LocalRouter.current
-        val itemsRepository = ItemsRepository.get()
-        val items by itemsRepository.getItems().collectAsStateWithLifecycle()
+        val viewModel = viewModel<ItemsViewModel>()
+        val items by viewModel.itemsFlow.collectAsStateWithLifecycle()
         val isEmpty by remember { derivedStateOf { items.isEmpty() } }
-        ResponseListener<ItemScreenResponse> { response ->
-            if (response.args is ItemScreenArgs.Edit) {
-                itemsRepository.update(response.args.index, response.newValue)
-            } else {
-                itemsRepository.addItem(response.newValue)
-            }
-        }
+        ResponseListener(viewModel::processResponse)
         ItemsContent(
             isItemsEmpty = isEmpty,
             items = { items },

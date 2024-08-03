@@ -1,11 +1,11 @@
 package com.mcmouse88.appnavigation.ui
 
 import com.mcmouse88.appnavigation.AppScreen
-import com.mcmouse88.appnavigation.ui.screen.ItemScreenArgs
-import com.mcmouse88.appnavigation.ui.screen.ItemsScreenProducer
+import com.mcmouse88.appnavigation.ui.screen.item.ItemScreenArgs
+import com.mcmouse88.appnavigation.ui.screen.items.ItemsScreenProducer
 import com.mcmouse88.appnavigation.ui.screen.ProfileScreenProducer
 import com.mcmouse88.appnavigation.ui.screen.SettingsScreenProducer
-import com.mcmouse88.appnavigation.ui.screen.itemScreenProducer
+import com.mcmouse88.appnavigation.ui.screen.item.itemScreenProducer
 import com.mcmouse88.navigation.Route
 import kotlinx.parcelize.Parcelize
 
