@@ -2,15 +2,16 @@ package com.mcmouse88.appnavigation.ui.screen.item
 
 import androidx.lifecycle.ViewModel
 import com.mcmouse88.appnavigation.ItemsRepository
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 
-class ItemViewModel(
-    private val args: ItemScreenArgs,
-    private val repository: ItemsRepository = ItemsRepository.get()
+@HiltViewModel(assistedFactory = ItemViewModel.Factory::class)
+class ItemViewModel @AssistedInject constructor(
+    @Assisted private val args: ItemScreenArgs,
+    private val repository: ItemsRepository
 ) : ViewModel() {
-
-    init {
-        println("AAAAA ItemViewModel-${hashCode()} created")
-    }
 
     fun getInitialValue(): String {
         return when (args) {
@@ -19,8 +20,8 @@ class ItemViewModel(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        println("AAAAA ItemViewModel-${hashCode()} destroyed")
+    @AssistedFactory
+    interface Factory {
+        fun create(args: ItemScreenArgs): ItemViewModel
     }
 }

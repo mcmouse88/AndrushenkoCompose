@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.google.dagger.hilt.android)
+    alias(libs.plugins.google.devtools.ksp)
     id("kotlin-parcelize")
 }
 
@@ -71,4 +73,6 @@ dependencies {
     implementation(project(":navigation-realization:navigation:"))
 
     implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.google.dagger.hilt.android)
+    ksp(libs.google.dagger.hilt.android.compiler)
 }

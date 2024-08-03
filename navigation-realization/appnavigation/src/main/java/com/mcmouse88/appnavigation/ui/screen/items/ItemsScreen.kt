@@ -21,11 +21,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mcmouse88.appnavigation.AppScreen
 import com.mcmouse88.appnavigation.AppScreenEnvironment
 import com.mcmouse88.appnavigation.FloatingAction
 import com.mcmouse88.appnavigation.R
+import com.mcmouse88.appnavigation.di.injectViewModel
 import com.mcmouse88.appnavigation.ui.AppRoute
 import com.mcmouse88.appnavigation.ui.screen.item.ItemScreenArgs
 import com.mcmouse88.navigation.LocalRouter
@@ -52,7 +52,7 @@ class ItemsScreen : AppScreen {
     @Composable
     override fun Content() {
         router = LocalRouter.current
-        val viewModel = viewModel<ItemsViewModel>()
+        val viewModel = injectViewModel<ItemsViewModel>()
         val items by viewModel.itemsFlow.collectAsStateWithLifecycle()
         val isEmpty by remember { derivedStateOf { items.isEmpty() } }
         ResponseListener(viewModel::processResponse)

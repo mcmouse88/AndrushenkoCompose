@@ -3,6 +3,8 @@ package com.mcmouse88.appnavigation
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * Repository for storing and managing the list of items
@@ -25,13 +27,10 @@ interface ItemsRepository {
      * Remove all items from the list. The flow returned by [getItems] will be automatically updated
      */
     fun clear()
-
-    companion object {
-        fun get(): ItemsRepository = ItemsRepositoryImpl
-    }
 }
 
-object ItemsRepositoryImpl : ItemsRepository {
+@Singleton
+class ItemsRepositoryImpl @Inject constructor() : ItemsRepository {
 
     private val items = MutableStateFlow(generateFakeItems())
 
