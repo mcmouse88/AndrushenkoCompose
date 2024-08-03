@@ -16,7 +16,10 @@ import com.mcmouse88.navigation.rememberNavigation
 @Composable
 fun AppScaffold() {
     val itemsRepository = ItemsRepository.get()
-    val navigation = rememberNavigation(RootTabs)
+    val navigation = rememberNavigation(
+        rootRoutes = RootTabs,
+        deepLinkHandler = AppDeepLinkHandler
+    )
     val (router, navigationState) = navigation
     val environment = navigationState.currentScreen.environment as AppScreenEnvironment
 
