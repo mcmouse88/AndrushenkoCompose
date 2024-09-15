@@ -2,15 +2,20 @@
 minSdk = "24"
 compileSdk = "34"
 targetSdk = "34"
-kotlinCompilerExtensionVersion = "1.5.5"
-kotlinVersion = "1.9.20"
+kotlinCompilerExtensionVersion = "1.5.10"
+kotlinVersion = "1.9.22"
 lifecycleVersion = "2.7.0"
 coroutinesVersion = "1.7.3"
 espressoVersion = "3.5.1"
+agp = "8.1.1"
+hiltVersion = "2.51.1"
 
 [plugins]
 android-application = { id = "com.android.application", version = "8.1.1" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlinVersion" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+google-devtools-ksp = { id = "com.google.devtools.ksp", version = "1.9.22-1.0.17" }
+google-dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hiltVersion" }
 
 [libraries]
 
@@ -21,6 +26,7 @@ core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 material = { module = "com.google.android.material:material", version = "1.11.0" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version = "1.8.2" }
 compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2023.08.00" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
@@ -30,6 +36,8 @@ ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version = "1.0.1" }
 
+# Compose
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleVersion" }
 
 # Lifecycle
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleVersion" }
@@ -43,11 +51,18 @@ androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version = "
 jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
 jetbrains-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesVersion" }
 
+# Hilt
+google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
+google-dagger-hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltVersion" }
+
 # Coil
 coil-compose = { module = "io.coil-kt:coil-compose", version = "2.5.0" }
 
 # Faker
 github-javafaker = { module = "com.github.javafaker:javafaker", version = "1.0.2" }
+
+# Immutable collections
+jetbrains-kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version = "0.3.7" }
 
 #-----------------------------------------------TEST-----------------------------------------------#
 junit = { module = "junit:junit", version = "4.13.2" }
