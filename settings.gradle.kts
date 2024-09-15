@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":nav_component")
+
+
 include(":navigation-realization:appnavigation")
 
 

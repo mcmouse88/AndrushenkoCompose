@@ -9,6 +9,7 @@ coroutinesVersion = "1.7.3"
 espressoVersion = "3.5.1"
 agp = "8.1.1"
 hiltVersion = "2.51.1"
+navVersion = "2.8.0"
 
 [plugins]
 android-application = { id = "com.android.application", version = "8.1.1" }
@@ -50,6 +51,9 @@ androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version = "
 # Coroutines
 jetbrains-kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
 jetbrains-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutinesVersion" }
+
+# Navigation
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navVersion" }
 
 # Hilt
 google-dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }

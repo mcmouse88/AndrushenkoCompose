@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.mcmouse88.immutable_stable"
+    namespace = "com.mcmouse88.nav_component"
     compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.mcmouse88.immutable_stable"
+        applicationId = "com.mcmouse88.nav_component"
         minSdk = libs.versions.minSdk.get().toInt()
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
@@ -34,15 +34,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        /*freeCompilerArgs += listOf(
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:metricsDestination=${project.buildDir.absolutePath}/reports",
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:reportsDestination=${project.buildDir.absolutePath}/reports",
-            "-P",
-            "plugin:androidx.compose.compiler.plugins.kotlin:stabilityConfigurationPath=${projectDir.absolutePath}/stability.conf"
-
-        )*/
         jvmTarget = "1.8"
     }
     buildFeatures {
@@ -75,4 +66,5 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+    implementation(libs.androidx.navigation.compose)
 }
