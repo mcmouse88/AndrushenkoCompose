@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -40,7 +40,7 @@ class ItemsScreen : AppScreen {
 
     override val environment = AppScreenEnvironment().apply {
         titleRes = R.string.items
-        icon = Icons.Default.List
+        icon = Icons.AutoMirrored.Filled.List
         floatingAction = FloatingAction(
             icon = Icons.Default.Add,
             onClick = {

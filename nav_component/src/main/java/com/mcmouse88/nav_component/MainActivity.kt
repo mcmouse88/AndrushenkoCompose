@@ -14,19 +14,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.mcmouse88.nav_component.model.ItemsRepository
 import com.mcmouse88.nav_component.screens.AddItemRoute
 import com.mcmouse88.nav_component.screens.ItemsRoute
 import com.mcmouse88.nav_component.screens.LocalNavController
 import com.mcmouse88.nav_component.screens.add.AddItemScreen
 import com.mcmouse88.nav_component.screens.items.ItemsScreen
-import com.mcmouse88.nav_component.ui.theme.AndrushchenkoJetpackComposeCourseTheme
+import com.mcmouse88.nav_component.ui.theme.NavigationComponentTheme
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var repository: ItemsRepository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AndrushchenkoJetpackComposeCourseTheme {
+            NavigationComponentTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { paddingValues ->
                     NavApp(
                         modifier = Modifier.padding(paddingValues)
@@ -59,7 +67,7 @@ fun NavApp(
 @Preview(showBackground = true)
 @Composable
 fun NavAppPreview() {
-    AndrushchenkoJetpackComposeCourseTheme {
+    NavigationComponentTheme {
         NavApp()
     }
 }

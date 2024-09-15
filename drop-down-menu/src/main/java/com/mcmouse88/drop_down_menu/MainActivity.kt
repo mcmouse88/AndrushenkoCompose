@@ -15,9 +15,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -96,7 +96,7 @@ fun AppScreen() {
                     },
                     contentPadding = PaddingValues(16.dp)
                 )
-                Divider()
+                HorizontalDivider()
                 DropdownMenuItem(
                     text = { Text(text = "Menu Item 222") },
                     onClick = {
