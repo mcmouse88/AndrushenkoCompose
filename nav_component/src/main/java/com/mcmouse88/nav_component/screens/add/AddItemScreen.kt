@@ -24,6 +24,7 @@ import com.mcmouse88.nav_component.R
 import com.mcmouse88.nav_component.screens.AddItemRoute
 import com.mcmouse88.nav_component.screens.EventConsumer
 import com.mcmouse88.nav_component.screens.LocalNavController
+import com.mcmouse88.nav_component.screens.routeClass
 
 @Composable
 fun AddItemScreen(
@@ -36,7 +37,7 @@ fun AddItemScreen(
     )
     val navController = LocalNavController.current
     EventConsumer(channel = viewModel.exitChannel) {
-        if (navController.currentBackStackEntry?.destination?.route == AddItemRoute) {
+        if (navController.currentBackStackEntry.routeClass() == AddItemRoute::class) {
             navController.navigateUp()
         }
     }

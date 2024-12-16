@@ -1,4 +1,24 @@
 package com.mcmouse88.nav_component.screens
 
-const val ItemsRoute = "items"
-const val AddItemRoute = "add_item"
+import androidx.navigation.NavBackStackEntry
+import kotlinx.serialization.Serializable
+import kotlin.reflect.KClass
+
+@Serializable
+data object ItemsRoute
+
+@Serializable
+data object AddItemRoute
+
+@Serializable
+data class EditItemRoute(
+    val index: Int
+)
+
+fun NavBackStackEntry?.routeClass(): KClass<*>? {
+    return this?.destination?.route
+        ?.split("/")
+        ?.first()
+        ?.let { Class.forName(it) }
+        ?.kotlin
+}

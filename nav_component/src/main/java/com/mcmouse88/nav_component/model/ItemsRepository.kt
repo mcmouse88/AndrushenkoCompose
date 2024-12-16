@@ -1,7 +1,5 @@
 package com.mcmouse88.nav_component.model
 
-import android.content.Context
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,9 +10,7 @@ import javax.inject.Singleton
 import kotlin.time.Duration.Companion.seconds
 
 @Singleton
-class ItemsRepository @Inject constructor(
-    @ApplicationContext context: Context
-) {
+class ItemsRepository @Inject constructor() {
 
     private val itemsFlow = MutableStateFlow(List(5) { "Item #${it + 1}" })
 
@@ -25,5 +21,17 @@ class ItemsRepository @Inject constructor(
 
     fun getItems(): Flow<List<String>> {
         return itemsFlow.onStart { delay(3.seconds) }
+    }
+
+    suspend fun getByIndex(index: Int): String {
+        delay(1.seconds)
+        return itemsFlow.value[index]
+    }
+
+    suspend fun update(index: Int, newTitle: String) {
+        delay(2.seconds)
+        itemsFlow.update { oldList ->
+            oldList.toMutableList().apply { set(index, newTitle) }
+        }
     }
 }
