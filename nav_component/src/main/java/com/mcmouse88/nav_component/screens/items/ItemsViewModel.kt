@@ -3,6 +3,7 @@ package com.mcmouse88.nav_component.screens.items
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcmouse88.nav_component.model.ItemsRepository
+import com.mcmouse88.nav_component.model.LoadResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -15,16 +16,13 @@ class ItemsViewModel @Inject constructor(
     itemsRepository: ItemsRepository
 ) : ViewModel() {
 
-    val stateFlow: StateFlow<ScreenState> = itemsRepository.getItems()
-        .map(ScreenState::Success)
+    val loadResultFlow: StateFlow<LoadResult<ScreenState>> = itemsRepository.getItems()
+        .map { LoadResult.Success(ScreenState(it)) }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
-            initialValue = ScreenState.Loading
+            initialValue = LoadResult.Loading
         )
 
-    sealed interface ScreenState {
-        data object Loading : ScreenState
-        data class Success(val items: List<String>) : ScreenState
-    }
+        data class ScreenState(val items: List<String>)
 }
