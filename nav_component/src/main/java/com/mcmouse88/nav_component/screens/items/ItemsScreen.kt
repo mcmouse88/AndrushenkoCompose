@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mcmouse88.nav_component.components.LoadResultContent
 import com.mcmouse88.nav_component.model.LoadResult
-import com.mcmouse88.nav_component.screens.EditItemRoute
+import com.mcmouse88.nav_component.screens.ItemsGraph
 import com.mcmouse88.nav_component.screens.LocalNavController
 import com.mcmouse88.nav_component.screens.items.ItemsViewModel.ScreenState
 
@@ -27,7 +27,7 @@ fun ItemsScreen(
     val loadResult by viewModel.loadResultFlow.collectAsState()
     val navController = LocalNavController.current
     ItemsContent(getLoadResult = { loadResult }, onItemClicked = { index ->
-        navController.navigate(EditItemRoute(index))
+        navController.navigate(ItemsGraph.EditItemRoute(index))
     })
 }
 

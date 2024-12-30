@@ -73,4 +73,5 @@ dependencies {
     ksp(libs.google.dagger.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.jetbrains.kotlinx.serialization.core)
+    implementation(libs.jetbrains.kotlinx.collections.immutable)
 }
