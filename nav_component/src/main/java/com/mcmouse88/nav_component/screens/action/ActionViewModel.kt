@@ -4,11 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mcmouse88.nav_component.model.LoadResult
 import com.mcmouse88.nav_component.model.tryUpdate
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ActionViewModel<State, Action>(
@@ -18,11 +17,8 @@ class ActionViewModel<State, Action>(
     private val _loadResultFlow = MutableStateFlow<LoadResult<State>>(LoadResult.Loading)
     val loadResultFlow: StateFlow<LoadResult<State>> = _loadResultFlow.asStateFlow()
 
-    private val _exitChannel = Channel<Unit>()
-    val exitChannel: ReceiveChannel<Unit> = _exitChannel
-
-    private val _errorChannel = Channel<Exception>()
-    val errorChannel: ReceiveChannel<Exception> = _errorChannel
+    private val _screenState = MutableStateFlow(ScreenState())
+    val screenState = _screenState.asStateFlow()
 
     init {
         load()
@@ -47,9 +43,17 @@ class ActionViewModel<State, Action>(
                 goBack()
             } catch (e: Exception) {
                 hideProgress()
-                _errorChannel.send(e)
+                _screenState.update { it.copy(error = e) }
             }
         }
+    }
+
+    fun onExitHandled() {
+        _screenState.update { it.copy(exit = null) }
+    }
+
+    fun onErrorHandled() {
+        _screenState.update { it.copy(error = null) }
     }
 
     private fun showProgress() {
@@ -60,8 +64,8 @@ class ActionViewModel<State, Action>(
         _loadResultFlow.tryUpdate(delegate::hideProgress)
     }
 
-    private suspend fun goBack() {
-        _exitChannel.send(Unit)
+    private fun goBack() {
+        _screenState.update { it.copy(exit = Unit) }
     }
 
     interface Delegate<State, Action> {
@@ -70,4 +74,9 @@ class ActionViewModel<State, Action>(
         fun hideProgress(input: State): State
         suspend fun execute(action: Action)
     }
+
+    data class ScreenState(
+        val exit: Unit? = null,
+        val error: Exception? = null
+    )
 }

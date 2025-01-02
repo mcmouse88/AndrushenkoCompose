@@ -2,18 +2,18 @@ package com.mcmouse88.nav_component.screens.action
 
 import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.mcmouse88.nav_component.components.ExceptionToMessageMapper
 import com.mcmouse88.nav_component.components.LoadResultContent
-import com.mcmouse88.nav_component.screens.EventConsumer
 import com.mcmouse88.nav_component.screens.LocalNavController
 import com.mcmouse88.nav_component.screens.action.ActionViewModel.Delegate
-import com.mcmouse88.nav_component.screens.routeClass
 
 data class ActionContentState<State, Action>(
     val state: State,
@@ -31,19 +31,23 @@ fun <State, Action> ActionScreen(
         ActionViewModel(delegate)
     }
     val navController = LocalNavController.current
-    val rememberedScreenRoute = remember {
-        navController.currentBackStackEntry.routeClass()
-    }
-    EventConsumer(channel = viewModel.exitChannel) {
-        if (rememberedScreenRoute == navController.currentBackStackEntry.routeClass()) {
+    val screenState by viewModel.screenState.collectAsStateWithLifecycle(
+        minActiveState = Lifecycle.State.RESUMED
+    )
+    val context = LocalContext.current
+    LaunchedEffect(key1 = screenState) {
+        screenState.exit?.let {
             navController.navigateUp()
+            viewModel.onExitHandled()
         }
     }
 
-    val context = LocalContext.current
-    EventConsumer(channel = viewModel.errorChannel) { e ->
-        val message = exceptionToMessageMapper.getUserMessage(e, context)
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    LaunchedEffect(key1 = screenState) {
+        screenState.error?.let { e ->
+            val message = exceptionToMessageMapper.getUserMessage(e, context)
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            viewModel.onErrorHandled()
+        }
     }
 
     val loadResult by viewModel.loadResultFlow.collectAsState()
