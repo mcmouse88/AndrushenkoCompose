@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":dialogs")
+
+
 include(":nav_component")
 
 
