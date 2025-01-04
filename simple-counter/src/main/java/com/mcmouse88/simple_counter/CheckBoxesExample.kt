@@ -6,9 +6,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -43,7 +43,7 @@ fun CheckBoxesExample() {
                         checkedItem.isChecked.value = newCheckValue
                     },
                     interactionSource = MutableInteractionSource(),
-                    indication = rememberRipple()
+                    indication = ripple()
                 )
         ) {
             Checkbox(

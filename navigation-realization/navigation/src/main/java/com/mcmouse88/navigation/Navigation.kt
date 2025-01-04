@@ -17,6 +17,7 @@ import com.mcmouse88.links.StackState
 import kotlinx.collections.immutable.ImmutableList
 
 @Stable
+@ConsistentCopyVisibility
 data class Navigation internal constructor(
     val router: Router,
     val navigationState: NavigationState,

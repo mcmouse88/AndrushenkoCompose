@@ -17,10 +17,10 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Settings
@@ -67,7 +67,7 @@ sealed class Route(@StringRes val titleRes: Int = 0) {
         @StringRes titleRes: Int,
         val icon: ImageVector
     ) : Route(titleRes) {
-        data object Items : Tab(R.string.items, Icons.Default.List)
+        data object Items : Tab(R.string.items, Icons.AutoMirrored.Filled.List)
         data object Settings : Tab(R.string.settings, Icons.Default.Settings)
         data object Profile : Tab(R.string.profile, Icons.Default.AccountBox)
     }
@@ -132,7 +132,7 @@ fun AppScreen(itemsRepository: ItemsRepository = ItemsRepository.get()) {
                         }
                     ) {
                         Icon(
-                            imageVector = if (isRoot) Icons.Default.Menu else Icons.Default.ArrowBack,
+                            imageVector = if (isRoot) Icons.Default.Menu else Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = stringResource(id = R.string.main_menu)
                         )
                     }
