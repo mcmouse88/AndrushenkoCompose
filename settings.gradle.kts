@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":animation:interaction-source")
+
+
 include(":animation")
 
 
