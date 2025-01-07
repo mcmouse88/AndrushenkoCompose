@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":canvas")
+
+
 include(":animation:interaction-source")
 
 
