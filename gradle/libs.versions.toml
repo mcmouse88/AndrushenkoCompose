@@ -27,7 +27,7 @@ constraintlayout = { module = "androidx.constraintlayout:constraintlayout", vers
 core-ktx = { module = "androidx.core:core-ktx", version = "1.12.0" }
 material = { module = "com.google.android.material:material", version = "1.12.0" }
 activity-compose = { group = "androidx.activity", name = "activity-compose", version = "1.9.2" }
-compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.09.01" }
+compose-bom = { group = "androidx.compose", name = "compose-bom", version = "2024.09.02" }
 compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
