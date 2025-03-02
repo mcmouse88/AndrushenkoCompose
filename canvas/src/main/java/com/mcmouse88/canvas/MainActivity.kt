@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
                     ) {
-                        PlaygroundTransformation(modifier = Modifier.padding(innerPadding))
+                        PlaygroundDrawCache(modifier = Modifier.padding(innerPadding))
                     }
                 }
             }
