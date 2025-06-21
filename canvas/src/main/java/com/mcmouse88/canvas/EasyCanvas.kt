@@ -1,5 +1,6 @@
 package com.mcmouse88.canvas
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +13,7 @@ import androidx.compose.ui.graphics.Matrix
 import androidx.compose.ui.graphics.drawscope.ContentDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.withTransform
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 
@@ -41,7 +43,7 @@ private class EasyCacheDrawScopeImpl(
         get() = controller.contentScale
 
     override val contentMatrix: Matrix
-        get() = controller.getContentMatrix(size)
+        get() = controller.contentMatrix
 
     override val size: Size
         get() = originScope.size
@@ -81,8 +83,16 @@ fun EasyCanvas(
     Box(
         modifier = modifier
             .drawWithCache {
+                controller.setCanvasSize(size)
                 val scope = EasyCacheDrawScopeImpl(controller, this)
                 scope.onDraw()
+            }
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onDoubleTap = { offset ->
+                        controller.focusOnViewPoint(offset)
+                    }
+                )
             }
     )
 }
