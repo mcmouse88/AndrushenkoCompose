@@ -51,6 +51,20 @@ class EasyCanvasController(
     // get current scale
     val zoom: Float get() = contentMatrix.values[Matrix.ScaleX]
 
+    // get current offset
+    val offset: Offset get() = Offset(
+        x = contentMatrix.values[Matrix.TranslateX],
+        y = contentMatrix.values[Matrix.TranslateY]
+    )
+
+    fun panAndZoo(centroid: Offset, offsetDiff: Offset, zoomDiff: Float) {
+        val newZoom = this.zoom * zoomDiff
+        val newOffset = this.offset + offsetDiff
+
+        val contentOffset = (centroid - newOffset) / this.zoom - (centroid - canvasSize.center) / newZoom
+        setCanvasFocus(CanvasFocus.Point(contentOffset, newZoom))
+    }
+
     fun focusOnViewPoint(offset: Offset, zoom: Float = this.zoom * 1.5f) {
         // Mapping the screen coordinates to the image coordinates
         val contentOffset = invertedContentMatrix.map(offset)
