@@ -3,7 +3,7 @@ package com.mcmouse88.canvas
 import android.graphics.RuntimeShader
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -62,15 +62,17 @@ private fun ShaderPreview() {
         initialContentRect = Rect(center = Offset.Zero, radius = 2.2f),
         initialContentScale = CanvasContentScale.CenterInside
     )
-    EasyCanvas(controller = controller, modifier = Modifier.size(200.dp, 200.dp)) {
+    EasyCanvas(
+        controller = controller,
+        modifier = Modifier.sizeIn(200.dp, 200.dp),
+        useGraphicLayer = true
+    ) {
         onDrawBehind {
-            withContentTransform {
-                drawRect(
-                    brush = brush,
-                    topLeft = contentRect.topLeft,
-                    size = contentRect.size
-                )
-            }
+            drawRect(
+                brush = brush,
+                topLeft = contentRect.topLeft,
+                size = contentRect.size
+            )
         }
     }
 }
